@@ -230,10 +230,14 @@ class Renderer(JsonRenderer):
             for legend_item in restriction_on_landownership['OtherLegend']:
                 self._multilingual_text(legend_item, 'LegendText')
 
+            elementsToDelete = []
             for legend_entry in restriction_on_landownership['OtherLegend']:
-                for element in list(legend_entry.keys()):
+                for element in legend_entry.keys():
                     if element not in ['LegendText', 'SymbolRef', 'TypeCode']:
-                        del legend_entry[element]
+                        elementsToDelete.append(element)
+            
+            for elementToDelete in elementsToDelete:
+                del legend_entry[elementToDelete]
 
             del restriction_on_landownership['Map']  # /definitions/Map
 
